@@ -4,7 +4,6 @@ int a; ijsij;
 jjo
 idfjoj
 ifj:ovsro
-
 kejk;
 
 }
