@@ -2,7 +2,7 @@ public class BinaryTree {
 
 int a; ijsij;
 jjo
-idfjoj
+idfjo
 ifj:ovsro
 kejk;
 
