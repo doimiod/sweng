@@ -28,7 +28,6 @@ class testLCA(unittest.TestCase):
 
     def testInvalid(self):
         self.assertEquals(LCA.findLCA(LCA.root, 2, 11), -1)
-        
 
         if __name__ == '__main__':
             unittest.main()
