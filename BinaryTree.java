@@ -1,91 +1,101 @@
-public class BinaryTree {
-    public static class TreeNode
-    {
-        int data;
-        TreeNode left;
-        TreeNode right;
-        TreeNode(int data)
-        {
-            this.data=data;
-        }
-    }
- 
-    public static TreeNode lowestCommonAncestorForBinarySearchTree(TreeNode root, TreeNode a, TreeNode b) {
-        if(root==null)
-            return null;;
-            if(root.data>a.data && root.data > b.data)
-            {
-                return lowestCommonAncestorForBinarySearchTree(root.left,a,b);
-            }
-            else if(root.data < a.data && root.data < b.data)
-            {
-                return  lowestCommonAncestorForBinarySearchTree(root.right,a,b);
-            }
-            // if you reach at this place, then it is LCA for given two nodes because a and b are on either side of root.
-            return root;
- 
-    }
- 
-    public static TreeNode LCAItr(TreeNode root, TreeNode a, TreeNode b) {
-        while(root!=null)
-        {
-            if(root.data>a.data && root.data > b.data)
-            {
-                root=root.left;
-            }
-            else if(root.data < a.data && root.data < b.data)
-            {
-                root=root.right;
-            }
-            else
-            {
-                return root;
-            }
-        }
-        return root;
-    }
- 
-    public static void main(String[] args)
-    {
-        BinaryTree bi=new BinaryTree();
-        // Creating a binary tree
-        TreeNode rootNode=createBinaryTree();
-        System.out.println("Lowest common ancestor for node 5 and 30 using Recursion:");
-        TreeNode node5=new TreeNode(5);
-        TreeNode node30=new TreeNode(30);
-        System.out.println(lowestCommonAncestorForBinarySearchTree(rootNode,node5,node30).data);
- 
-        System.out.println("Lowest common ancestor for node 5 and 30 using Iteration:");
-        System.out.println(LCAItr(rootNode,node5,node30).data);
- 
-    }
- 
-    public static TreeNode createBinaryTree()
-    {
- 
-        TreeNode rootNode =new TreeNode(40);
-        TreeNode node20=new TreeNode(20);
-        TreeNode node10=new TreeNode(10);
-        TreeNode node30=new TreeNode(30);
-        TreeNode node60=new TreeNode(60);
-        TreeNode node50=new TreeNode(50);
-        TreeNode node70=new TreeNode(70);
-        TreeNode node5=new TreeNode(5);
-        TreeNode node45=new TreeNode(45);
-        TreeNode node55=new TreeNode(55);
- 
-        rootNode.left=node20;
-        rootNode.right=node60;
- 
-        node20.left=node10;
-        node20.right=node30;
- 
-        node60.left=node50;
-        node60.right=node70;
- 
-        node10.left=node5;
-        node50.right=node55;
-        return rootNode;
-    }
+
+ // Java Program for Lowest Common Ancestor in a Binary Tree
+import java.util.ArrayList;
+import java.util.List;
+
+class Node {
+	int data;
+	Node left, right;
+
+	Node(int value) {
+		data = value;
+		left = right = null;
+	}
 }
+
+public class BinaryTree
+{
  
+	Node root;
+	private List<Integer> path1 = new ArrayList<>();
+	private List<Integer> path2 = new ArrayList<>();
+
+	// Finds the path from root node to given root of the tree.
+	int findLCA(int n1, int n2) {
+		path1.clear();
+		path2.clear();
+		return findLCAInternal(root, n1, n2);
+	}
+
+	private int findLCAInternal(Node root, int n1, int n2) {
+
+		if (!findPath(root, n1, path1) || !findPath(root, n2, path2)) {
+			System.out.println((path1.size() > 0) ? "n1 is present" : "n1 is missing");
+			System.out.println((path2.size() > 0) ? "n2 is present" : "n2 is missing");
+			return -1;
+		}
+
+		int i;
+		for (i = 0; i < path1.size() && i < path2.size(); i++) {
+			
+		// System.out.println(path1.get(i) + " " + path2.get(i));
+			if (!path1.get(i).equals(path2.get(i)))
+				break;
+		}
+
+		return path1.get(i-1);
+	}
+	
+	// Finds the path from root node to given root of the tree, Stores the
+	// path in a vector path[], returns true if path exists otherwise false
+	private boolean findPath(Node root, int n, List<Integer> path)
+	{
+		// base case
+		if (root == null) {
+			return false;
+		}
+		
+		// Store this node . The node will be removed if
+		// not in path from root to n.
+		path.add(root.data);
+
+		if (root.data == n) {
+			return true;
+		}
+
+		if (root.left != null && findPath(root.left, n, path)) {
+			return true;
+		}
+
+		if (root.right != null && findPath(root.right, n, path)) {
+			return true;
+		}
+
+		// If not present in subtree rooted with root, remove root from
+		// path[] and return false
+		path.remove(path.size()-1);
+
+		return false;
+	}
+
+	// Driver code
+	public static void main(String[] args)
+	{
+		BinaryTree tree = new BinaryTree();
+		tree.root = new Node(1);
+		tree.root.left = new Node(2);
+		tree.root.right = new Node(3);
+		tree.root.left.left = new Node(4);
+		tree.root.left.right = new Node(5);
+		tree.root.right.left = new Node(6);
+		tree.root.right.right = new Node(7);
+
+		System.out.println("LCA(4, 5): " + tree.findLCA(4,5));
+		System.out.println("LCA(4, 6): " + tree.findLCA(4,6));
+		System.out.println("LCA(3, 4): " + tree.findLCA(3,4));
+		System.out.println("LCA(2, 4): " + tree.findLCA(2,4));
+	
+	}
+
+}
+
