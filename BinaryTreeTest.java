@@ -17,18 +17,18 @@ public class BinaryTreeTest {
 		testTree.root.right.right = new Node(78);
 		
 		assertEquals(56, testTree.findLCA(2,37));
-        assertEquals(56, testTree.findLCA(2,9));
-        assertEquals(56, testTree.findLCA(2,12));
-        assertEquals(56, testTree.findLCA(37,78));
-        assertEquals(56, testTree.findLCA(37,94));
-        assertEquals(56, testTree.findLCA(9,94));
-        assertEquals(56, testTree.findLCA(9,78));
-        assertEquals(56, testTree.findLCA(12,94));
-        assertEquals(56, testTree.findLCA(12,78));
-        
-        assertEquals(37, testTree.findLCA(9,12));
-        
-        assertEquals(2, testTree.findLCA(94,78));
+		assertEquals(56, testTree.findLCA(2,9));
+		assertEquals(56, testTree.findLCA(2,12));
+		assertEquals(56, testTree.findLCA(37,78));
+		assertEquals(56, testTree.findLCA(37,94));
+		assertEquals(56, testTree.findLCA(9,94));
+		assertEquals(56, testTree.findLCA(9,78));
+		assertEquals(56, testTree.findLCA(12,94));
+		assertEquals(56, testTree.findLCA(12,78));
+		
+		assertEquals(37, testTree.findLCA(9,12));
+		
+		assertEquals(2, testTree.findLCA(94,78));
 		
 	}
 	
@@ -70,7 +70,6 @@ public class BinaryTreeTest {
 		assertEquals(-1, testInvalidTree.findLCA(24,65));
 		assertEquals(-1, testInvalidTree.findLCA(73,92));
 		assertEquals(-1, testInvalidTree.findLCA(1,1));
-		
 	}
 
 }
