@@ -15,12 +15,17 @@ class testLCA(unittest.TestCase):
         self.root.right.right = LCA.Node(7)
         self.root.left.left.left = LCA.Node(8)
         self.root.left.left.right = LCA.Node(9)
+        
 
 
     def test(self):
-        self.assertTrue(LCA.findLCA(LCA.root, 2, 9), 1)
-        self.assertTrue(LCA.findLCA(LCA.root, 5, 7), 1)
-        
 
+        self.assertEquals(LCA.findLCA(LCA.root, 2, 3), 1) 
+        self.assertEquals(LCA.findLCA(LCA.root, 5, 7), 1)
+        self.assertEquals(LCA.findLCA(LCA.root, 2, 4), 2)
+        self.assertEquals(LCA.findLCA(LCA.root, 4, 5), 2) 
+        self.assertEquals(LCA.findLCA(LCA.root, 6, 7), 3) 
+        
+        
         if __name__ == '__main__':
             unittest.main()
